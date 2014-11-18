@@ -1,5 +1,5 @@
 ﻿#load "SampleSolutionFiles.fs"
-#load "../../Src/SolutionTree/SolutionHierarchy.fs"
+#load "../../Src/SolutionTree/SolutionTree.fs"
 
 open System
 open SolutionTree
