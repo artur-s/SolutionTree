@@ -32,11 +32,11 @@ let project = "SolutionTree"
 
 // Short summary of the project
 // (used as description in AssemblyInfo and as a short summary for NuGet package)
-let summary = "Parses Visual Studio solution file `.sln` and returns its project structure."
+let summary = "Parses Visual Studio solution file `.sln` and returns its projects structure."
 
 // Longer description of the project
 // (used as a description for NuGet package; line breaks are automatically cleaned up)
-let description = "Project has no description; update build.fsx"
+let description = "A simple tool that parses Visual Studio solution file .sln and returns its projects structure."
 
 // List of author names (for NuGet package)
 let authors = [ "artur-s" ]

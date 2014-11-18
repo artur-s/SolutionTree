@@ -3,7 +3,7 @@ open System.Reflection
 
 [<assembly: AssemblyTitleAttribute("SolutionTree")>]
 [<assembly: AssemblyProductAttribute("SolutionTree")>]
-[<assembly: AssemblyDescriptionAttribute("Parses Visual Studio solution file `.sln` and returns its project structure.")>]
+[<assembly: AssemblyDescriptionAttribute("Parses Visual Studio solution file `.sln` and returns its projects structure.")>]
 [<assembly: AssemblyVersionAttribute("0.0.1")>]
 [<assembly: AssemblyFileVersionAttribute("0.0.1")>]
 do ()
