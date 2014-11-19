@@ -96,28 +96,22 @@ let FromLines (fileLines:string[]) =
 
     let rec parseProjects lines = 
 
-        let parseFolderProjectSection lines =
-            let rec loop lines = seq {
+        let rec parseFolderProjectSection lines = seq {
                 match lines with
                 | EndProjectSection :: rest -> ()
                 | SplitByEqual (left,_) :: rest -> 
                     yield left
-                    yield! loop rest
+                    yield! parseFolderProjectSection rest
                 | _ -> ()
             }
 
-            ( loop lines |> Seq.toList, 
-              lines |> Seq.skipWhile (function | EndProjectSection -> false | _ -> true) |> Seq.skip 1 
-              |> Seq.toList)
-
-    
         seq {
         match lines with
 
         | ProjectStart (id, FolderProjectType true, name, path) :: (ProjectSection  "SolutionItems") :: rest ->
-            let items, newLines = parseFolderProjectSection rest
+            let items = parseFolderProjectSection rest |> Seq.toList
             yield Folder {Id = id;Name = name; Path = path; Items = items |> List.map SolutionItem}
-            yield! parseProjects newLines
+            yield! rest |> Seq.skip (items.Length) |> Seq.toList |> parseProjects
 
         | ProjectStart (id, FolderProjectType true, name, path) :: rest ->
             yield Folder {Id = id; Name = name; Path = path; Items = []}
@@ -135,17 +129,17 @@ let FromLines (fileLines:string[]) =
 
     let parseGlobalSection lines = 
 
-        let rec parseNestedProjects iin lines = seq {
+        let rec parseNestedProjects inScope lines = seq {
             match lines with
             | GlobalSection "NestedProjects" :: rest ->
                 yield! parseNestedProjects true rest
-            | SplitByEqual (left,right) :: rest when iin -> 
+            | SplitByEqual (left,right) :: rest when inScope -> 
                 yield {Id = Guid left; ParentId = Guid right}
                 yield! parseNestedProjects true rest
-            | EndGlobalSection :: _ when iin -> ()
+            | EndGlobalSection :: _ when inScope -> ()
             | [] -> ()
             | _ :: rest -> 
-                yield! parseNestedProjects iin rest
+                yield! parseNestedProjects inScope rest
         }
 
         lines
