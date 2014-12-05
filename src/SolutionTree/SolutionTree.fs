@@ -10,7 +10,7 @@ module SolutionTree.SolutionTree
 
 open System
 open System.IO
-open System.Text.RegularExpressions
+open StringUtils
 
 
 type SolutionPart =
@@ -29,24 +29,11 @@ type internal NestedProjects = NestedProjects of ChildParent list
 ///  - `fileLines` - solution file (.sln) content lines
 let FromLines (fileLines:string[]) =
 
-    let (|Regexx|_|) pattern input =
-        let m = Regex.Match(input, pattern)
-        if m.Success then Some(List.tail [ for g in m.Groups -> g.Value ])
-        else None
-
-    let trim (s:string) = s.Trim()
-    let trimMulti cs (s:string) = s.Trim(cs)
-    let split (separator:char) trimChars (value:string) = value.Split(separator) |> List.ofArray |> List.map (trimMulti trimChars)
-
     let (|GuidOpt|_|) value =
         match Guid.TryParse value with
         | true, guid -> Some guid
         | _ -> None
 
-    let (|SplitByEqual|_|) line =
-        match line |> split '=' [||] with
-        | [left;right] -> Some (left,right)
-        | _ -> None
 
     let (|ProjectStart|_|) (line:string) =
 
