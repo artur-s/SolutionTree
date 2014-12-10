@@ -1,4 +1,5 @@
 ﻿#load "SampleSolutionFiles.fs"
+#load "../../Src/SolutionTree/StringUtils.fs"
 #load "../../Src/SolutionTree/SolutionTree.fs"
 
 open System
