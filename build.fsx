@@ -163,12 +163,14 @@ Target "NuGet" (fun _ ->
             Summary = summary
             Description = description
             Version = release.NugetVersion
-            ReleaseNotes = String.Join(Environment.NewLine, release.Notes)
+            ReleaseNotes = toLines release.Notes
             Tags = tags
             OutputPath = "bin"
             AccessKey = getBuildParamOrDefault "nugetkey" ""
             Publish = hasBuildParam "nugetkey"
-            Dependencies = [] })
+            Dependencies = 
+                    ["FSharp.Core", GetPackageVersion "packages" "FSharp.Core" ]
+        })
         ("nuget/" + project + ".nuspec")
 )
 

@@ -7,14 +7,13 @@
     <owners>@authors@</owners>
     <licenseUrl>http://github.com/artur-s/SolutionTree/blob/master/LICENSE.txt</licenseUrl>
     <projectUrl>http://github.com/artur-s/SolutionTree</projectUrl>
-    <!--<iconUrl></iconUrl>-->
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <summary>@summary@</summary>
     <description>@description@</description>
     <releaseNotes>@releaseNotes@</releaseNotes>
     <copyright>Copyright 2014</copyright>
     <tags>@tags@</tags>
-    <dependencies />
+    @dependencies@
   </metadata>
   <files>
     <file src="..\bin\SolutionTree.dll" target="lib/net40" />
