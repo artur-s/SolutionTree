@@ -2,9 +2,8 @@
 
     
     [<Literal>]
-    let ``MoreLevels with 17 items`` =
+    let ``17 items, 3 levels`` =
         """
-
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
@@ -59,5 +58,4 @@ Global
 		{C1AA2F5B-CA48-4DB1-A66F-80E90A078082} = {D672BF9C-E983-46C8-B045-F972FD4BCA41}
 	EndGlobalSection
 EndGlobal
-
 """

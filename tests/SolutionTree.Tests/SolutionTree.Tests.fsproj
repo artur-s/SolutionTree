@@ -58,8 +58,8 @@
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <ItemGroup>
     <Compile Include="SampleSolutionFiles.fs" />
-    <None Include="ParsingSolution.fsx" />
     <Compile Include="SolutionTreeTests.fs" />
+    <None Include="ParsingSolution.fsx" />
     <None Include="paket.references" />
   </ItemGroup>
   <ItemGroup>

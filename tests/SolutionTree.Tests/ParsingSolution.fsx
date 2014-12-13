@@ -32,24 +32,3 @@ open SolutionTree.SolutionTree
 //| ProjectSection "SolutionItems" -> true
 //| _ -> false
 
-
-let toLines (s:string) = s.Split([|'\r'; '\n'|], StringSplitOptions.RemoveEmptyEntries)
-
-let solutionLines = 
-    SampleSolutionFiles.``MoreLevels with 17 items`` |> toLines
-    |> Array.filter (String.IsNullOrWhiteSpace >> not)
-
-let hierarchy = SolutionTree.FromLines(solutionLines)
-
-let itemsCount hierarchy =
-    let rec loop acc = function
-        | (Folder d | Project (d,_)) :: items ->
-                            (loop 0 d.Items) +
-                            (loop (acc + 1) items)
-        | _ :: items -> loop (acc + 1) items 
-        | [] -> acc
-    loop 0 hierarchy
-
-// should be 17
-hierarchy |> itemsCount
-
