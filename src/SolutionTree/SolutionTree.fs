@@ -187,4 +187,26 @@ let FromFile(file:string) : SolutionPart list =
     |> FromLines
    
 
+/// Returns a number of items in projects hierarchy.
+let Count hierarchy =
+    let rec loop acc = function
+        | (Folder d | Project (d,_)) :: items ->
+                            (loop 0 d.Items) +
+                            (loop (acc + 1) items)
+        | _ :: items -> loop (acc + 1) items 
+        | [] -> acc
+    loop 0 hierarchy
 
+/// Returns depth of projects hierarchy.
+let Depth (hierarchy:SolutionPart list) =
+    
+    let defaultIfEmpty value = function
+        | [] -> [value]
+        | lst -> lst
+
+    let rec depth parts =
+        (parts |> List.map (function
+                                   | Folder d | Project (d,_) -> depth d.Items + 1
+                                   | _  -> 0)
+        |> defaultIfEmpty 0 |> Seq.max)
+    depth hierarchy 
